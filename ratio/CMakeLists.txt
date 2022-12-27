@@ -25,7 +25,7 @@ add_library(Ratio ${header_files})
 set_target_properties(Ratio PROPERTIES LINKER_LANGUAGE CXX)
 
 # compilation flags
-target_compile_features(Ratio PRIVATE cxx_std_11) # use at least c++ 11
+target_compile_features(Ratio PRIVATE cxx_std_17) # use at least c++ 17
 if (MSVC)
     target_compile_options(Ratio PRIVATE /W3)
 else()

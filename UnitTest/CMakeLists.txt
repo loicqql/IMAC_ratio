@@ -7,6 +7,6 @@ include(GoogleTest)
 
 add_executable(UnitTests src/sample_test.cpp)
 target_link_libraries(UnitTests PUBLIC Ratio GTest::GTest GTest::Main)
-target_compile_features(UnitTests PRIVATE cxx_std_14)
+target_compile_features(UnitTests PRIVATE cxx_std_17)
 
 gtest_discover_tests(UnitTests)

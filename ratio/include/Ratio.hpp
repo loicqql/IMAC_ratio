@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <numeric>
+
 #pragma once
 
 
@@ -10,7 +12,10 @@
 /// \section instroduction_sec What for?
 /// Ratio is a super tool :).
 /// \section install_bigsec How to install
-/// \subsection dependencies_sec Dependecies
+/// \subsection depen
+
+
+/////////////////////////////////////////////////////
 /// \li nothing
 /// \li Doxygen (if you want the documentation)
 /// \subsection install_sec Install with cmake (Linux / Mac)
@@ -25,32 +30,52 @@
 /// 	- or [path to build]/INTERFACE/doc/doc-doxygen/html/index.html
 
 
-template <typename T>
-
 /// \class Ratio
 /// \brief class using rationals to remplace floating-point arithmetic.
 class Ratio {
 
 private :
   
-    T m_numerator;
-    T m_denominator;
+    int m_numerator;
+    uint m_denominator;
 
 public :
 
+    /// \brief defaultConstructor equal to 0
+    Ratio() : m_numerator(0), m_denominator(1) {};
+
 	/// \brief constructor from a numerator and a denominator
-	/// \param numerator : the numerator of the requested rational
-    /// \param numerator : the denominator of the requested rational
-    Ratio(const T &numerator, const T &denominator) : m_numerator(numerator), m_denominator(denominator) {};
+	/// \param numerator : int : the numerator of the requested rational
+    /// \param denominator : unsigned int : the denominator of the requested rational
+    Ratio(const int &numerator, const uint &denominator);
 
     /// \brief destructor
     ~Ratio() = default;
 
+    /// \brief getter / setter
+    inline int & numerator() {return m_numerator;};
+    inline uint & denominator() {return m_denominator;};
+
+    /// \brief transforms a Ratio into an irreducible fraction
+    void irreducible();
 };
 
-    template<typename T>
 	/// \brief overload the operator << for Ratio
     /// \param stream : input stream
     /// \param v : the vector to output
     /// \return the output stream containing the vector data
-    std::ostream& operator<< (std::ostream& stream, const Ratio<T>& v);
+    std::ostream& operator<< (std::ostream& stream, const Ratio& v);
+
+    Ratio::Ratio(const int &numerator, const uint &denominator)
+    {
+        this->m_numerator=numerator;
+        this->m_denominator=denominator;
+        this->irreducible();
+    }
+
+    void Ratio::irreducible()
+    {
+        uint pgcd = std::__detail::__gcd(uint(this->m_numerator),this->m_denominator);
+        this->m_numerator=this->m_numerator/pgcd;
+        this->m_denominator=this->m_denominator/pgcd;
+    }
