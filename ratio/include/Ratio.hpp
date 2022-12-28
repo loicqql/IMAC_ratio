@@ -62,8 +62,8 @@ public :
 
 	/// \brief overload the operator << for Ratio
     /// \param stream : input stream
-    /// \param v : the vector to output
-    /// \return the output stream containing the vector data
+    /// \param v : the ratio to output
+    /// \return the output stream containing the ratio data
     std::ostream& operator<< (std::ostream& stream, const Ratio& v);
 
     Ratio::Ratio(const int &numerator, const uint &denominator)
