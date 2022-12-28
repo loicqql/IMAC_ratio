@@ -11,7 +11,7 @@ add_executable(example src/main.cpp)                # file to compile and name o
 target_link_libraries(example PRIVATE Ratio)      # lib dependency
 
 # compilation flags
-target_compile_features(example PRIVATE cxx_std_14) # use at least c++ 14
+target_compile_features(example PRIVATE cxx_std_17) # use at least c++ 17
 if (MSVC)
     target_compile_options(example PRIVATE /W3)
 else()
