@@ -52,19 +52,38 @@ public :
     /// \brief destructor
     ~Ratio() = default;
 
-    /// \brief getter / setter
+    /// \brief get numerator
     inline int & numerator() {return m_numerator;};
+
+    /// \brief get denominator
     inline uint & denominator() {return m_denominator;};
 
     /// \brief transforms a Ratio into an irreducible fraction
     void irreducible();
-};
 
-	/// \brief overload the operator << for Ratio
+    /// \brief operator *
+	/// \param the rational
+    Ratio operator*(const Ratio &r) const;
+
+    /// \brief operator +
+	/// \param the rational
+    Ratio operator+(const Ratio &r) const;
+
+    /// \brief operator -
+	/// \param the rational
+    Ratio operator-(const Ratio &r) const;
+
+    /// \brief operator /
+	/// \param the rational
+    Ratio operator/(const Ratio &r) const;
+
+    /// \brief overload the operator << for Ratio
     /// \param stream : input stream
     /// \param v : the ratio to output
     /// \return the output stream containing the ratio data
-    std::ostream& operator<< (std::ostream& stream, const Ratio& v);
+    friend std::ostream& operator<<(std::ostream& stream, const Ratio& r);
+
+};
 
     Ratio::Ratio(const int &numerator, const uint &denominator)
     {
@@ -79,3 +98,43 @@ public :
         this->m_numerator=this->m_numerator/pgcd;
         this->m_denominator=this->m_denominator/pgcd;
     }
+
+    Ratio Ratio::operator*(const Ratio &r) const
+    {
+        int num = this->m_numerator * r.m_numerator;
+        int den = this->m_denominator * r.m_denominator;
+        if(num == den) { // integer found
+            num = this->m_denominator;
+            den = 1;
+        }
+        return Ratio(num, den);
+    }
+
+    Ratio Ratio::operator+(const Ratio &r) const
+    {
+        int num = this->m_numerator * r.m_denominator + this->m_denominator * r.m_numerator;
+        int den = this->m_denominator * r.m_denominator;
+        if(num == den) { // integer found
+            num = this->m_denominator;
+            den = 1;
+        }
+        return Ratio(num, den);
+    }
+
+    Ratio Ratio::operator-(const Ratio &r) const
+    {
+        int num = this->m_numerator * r.m_denominator - this->m_denominator * r.m_numerator;
+        int den = this->m_denominator * r.m_denominator;
+        if(num == den) { // integer found
+            num = this->m_denominator;
+            den = 1;
+        }
+        return Ratio(num, den);
+    }
+
+    std::ostream& operator<<(std::ostream& stream, const Ratio& r)
+    {
+	    stream << "(" << r.m_numerator << "/" << r.m_denominator << ")";
+        return stream;
+    }
+
