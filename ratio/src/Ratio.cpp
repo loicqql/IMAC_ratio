@@ -6,7 +6,7 @@
 #include "Ratio.hpp"
 
 // Utilities 
-Ratio convertRealToRatio(float real, uint nb_iter)
+Ratio convertRealToRatio(double real, uint nb_iter)
 {
     //1st stopping condition : return 0/1
     if(real==0){return Ratio();}
@@ -30,13 +30,6 @@ Ratio convertRealToRatio(float real, uint nb_iter)
     }
 }
 
-Ratio::Ratio(const float &real)
-{
-    uint nb_iter=100;
-    int sign = real < 0 ? -1 : 1;
-    *this = Ratio(sign,1) * convertRealToRatio(std::abs(real),nb_iter);
-}
-
 std::ostream& operator<<(std::ostream& stream, const Ratio& r)
 {
     stream << "(" << r.m_numerator << "/" << r.m_denominator << ")";
@@ -45,6 +38,14 @@ std::ostream& operator<<(std::ostream& stream, const Ratio& r)
 
 
 // Ratio's functions
+
+Ratio::Ratio(const double &real)
+{
+    uint nb_iter=100;
+    int sign = real < 0 ? -1 : 1;
+    *this = Ratio(sign,1) * convertRealToRatio(std::abs(real),nb_iter);
+    this->irreducible();
+}
 
 Ratio::Ratio(const int &numerator, const uint &denominator)
 {
@@ -124,13 +125,14 @@ Ratio Ratio::operator/(Ratio rat) const
 //mathematical fonctions
 
 Ratio Ratio::sin(const Ratio & rat){
-    float value=std::sin(rat.m_numerator/rat.m_denominator);
+    double value=std::sin(double(rat.m_numerator)/double(rat.m_denominator));
+    std::cout << value << std::endl;
     Ratio result(value);
     return result;
 }
 
 Ratio Ratio::cos(const Ratio & rat){
-    float value=std::cos(rat.m_numerator/rat.m_denominator);
+    double value=std::cos(double(rat.m_numerator)/double(rat.m_denominator));
     Ratio result(value);
     return result;
 }
@@ -139,13 +141,14 @@ Ratio Ratio::tan(const Ratio & rat){
     return Ratio::sin(rat)/Ratio::cos(rat);
 }
 
-// Ratio Ratio::exp(const Ratio & rat){
-//     return Ratio(std::exp(rat.m_numerator),rat.m_numerator*std::exp(rat.m_numerator));
-// }
-
-// Ratio Ratio::log(const Ratio & rat){
-//     return Ratio(std::log(rat.m_numerator),rat.m_numerator/rat.m_numerator);
-// }
+Ratio Ratio::exp(const Ratio & rat){
+    double value=std::exp(rat.m_numerator/rat.m_denominator);
+    return Ratio(value);
+}
+ 
+Ratio Ratio::log(const Ratio & rat){
+    return Ratio(std::log(rat.m_numerator),rat.m_numerator/rat.m_numerator);
+}
 
 // Ratio Ratio::abs(const Ratio & rat){
 //     return Ratio(std::abs(rat.m_numerator),rat.m_numerator*sign(rat.m_numerator));

@@ -50,10 +50,10 @@ public :
     /// \param rat : Ratio copied
     Ratio(const Ratio &rat) : m_numerator(rat.m_numerator), m_denominator(rat.m_denominator) {};
 
-    /// @brief Constructor which transforms a real into a Ratio
-    /// @param real : a real to convert into a ratio
+    /// @brief Constructor which transforms a double into a Ratio
+    /// @param real : a double to convert into a ratio
     /// @return a ratio equal to real
-    Ratio(const float &real);
+    Ratio(const double &real);
 
     /// \brief destructor
     ~Ratio() = default;

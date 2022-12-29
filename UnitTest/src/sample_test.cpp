@@ -29,7 +29,7 @@ TEST (operators, multiplication) {
 
 TEST (operatorsInteger, multiplication) { 
 	Ratio rat(3, 2);
-	Ratio rat2(2, 0);
+	Ratio rat2(2, 1);
 	Ratio res = rat * rat2;
 	ASSERT_DOUBLE_EQ((double)res.numerator() / res.denominator(), 3.0);
 }

@@ -29,5 +29,9 @@ int main() {
     Ratio rat6 = Ratio(-1.5);
     std::cout << rat6 << std::endl;
 
+    Ratio ratSin(M_PI,1);
+    ratSin=Ratio::sin(ratSin);
+    std::cout << ratSin << std::endl;
+
     return 0;
 }
