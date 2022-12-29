@@ -57,14 +57,12 @@ Ratio::Ratio(const int &numerator, const uint &denominator)
 void Ratio::irreducible()
 {
     uint pgcd = std::__detail::__gcd(uint(this->m_numerator),this->m_denominator);
-    this->m_numerator=this->m_numerator/pgcd;
+    this->m_numerator=this->m_numerator/int(pgcd);
     this->m_denominator=this->m_denominator/pgcd;
 }
 
 void Ratio::inverse()
 {   
-    //assert(this->m_denominator!=0 && "Can't invert infinite numbers"); 
-
     int sign=1;
     if (this->m_numerator<0)
     {
@@ -73,7 +71,6 @@ void Ratio::inverse()
     uint temp=uint(sign*this->m_numerator);
     this->m_numerator=sign*int(this->m_denominator);
     this->m_denominator=temp;
-
 }
 
 void Ratio::operator=(const Ratio &r)
@@ -141,7 +138,7 @@ Ratio Ratio::exp(const Ratio & rat){
     double value=std::exp(rat.m_numerator/rat.m_denominator);
     return Ratio(value);
 }
- 
+
 Ratio Ratio::log(const Ratio & rat){
     return Ratio(std::log(rat.m_numerator)-std::log(rat.m_denominator));
 }
