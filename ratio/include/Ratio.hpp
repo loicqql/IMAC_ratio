@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <numeric>
+#include <math.h>
 
 #pragma once
 
@@ -49,6 +49,16 @@ public :
     /// \param denominator : unsigned int : the denominator of the requested rational
     Ratio(const int &numerator, const uint &denominator);
 
+    /// \brief copyConstructor
+    /// \param rat : Ratio copied
+    Ratio(const Ratio &rat) : m_numerator(rat.m_numerator), m_denominator(rat.m_denominator) {};
+
+    /// @brief Constructor which transforms a real into a Ratio
+    /// @param real : a real to convert into a ratio
+    /// @return a ratio equal to real
+    template <typename R>
+    Ratio(const R &real);
+
     /// \brief destructor
     ~Ratio() = default;
 
@@ -58,8 +68,21 @@ public :
     /// \brief get denominator
     inline uint & denominator() {return m_denominator;};
 
+    /// \brief get numerator
+    inline const int & numerator() const {return m_numerator;};
+
+    /// \brief get denominator
+    inline const uint & denominator() const {return m_denominator;};
+
     /// \brief transforms a Ratio into an irreducible fraction
     void irreducible();
+
+    /// \brief transforms a Ratio into its invert
+    void inverse();
+
+    /// \brief operator =
+	/// \param the rational
+    void operator=(const Ratio &r);
 
     /// \brief operator *
 	/// \param the rational
@@ -75,12 +98,53 @@ public :
 
     /// \brief operator /
 	/// \param the rational
-    Ratio operator/(const Ratio &r) const;
+    Ratio operator/(Ratio r) const;
+
+
+
+    template <typename T>
+    inline friend Ratio operator*(const T &value, const Ratio &rat) 
+    {
+        Ratio val(value);
+        return val*rat;
+    }
+    template <typename T>
+    inline friend Ratio operator*(const Ratio &rat, const T &value) 
+    {
+        Ratio val(value);
+        return val*rat;
+    }
+
+    template <typename T>
+    inline friend Ratio operator/(const Ratio &rat, const T &value) 
+    {
+        Ratio val(value);
+        return rat/val;
+    }
+    template <typename T>
+    inline friend Ratio operator/(const T &value, const Ratio &rat) 
+    {
+        Ratio val(value);
+        return val/rat;
+    }
+
+    /// \brief unary minus
+    inline friend Ratio operator-(const Ratio &rat) {return Ratio(-rat.m_numerator,rat.m_denominator);}
 
     /// \brief overload the operator << for Ratio
     /// \param stream : input stream
     /// \param v : the ratio to output
     /// \return the output stream containing the ratio data
     friend std::ostream& operator<<(std::ostream& stream, const Ratio& r);
+
+    static Ratio sin(const Ratio & rat);
+    static Ratio cos(const Ratio & rat);
+    static Ratio tan(const Ratio & rat);
+    static Ratio exp(const Ratio & rat);
+    static Ratio log(const Ratio & rat);
+    static Ratio abs(const Ratio & rat);
+    static Ratio sqrt(const Ratio & rat);
+    template <typename T>
+    static Ratio pow(const Ratio & rat, const T &n);
 
 };
