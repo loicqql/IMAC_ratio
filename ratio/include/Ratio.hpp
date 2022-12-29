@@ -97,15 +97,8 @@ public :
     Ratio operator/(Ratio r) const;
 
 
-
     template <typename T>
     inline friend Ratio operator*(const T &value, const Ratio &rat) 
-    {
-        Ratio val(value);
-        return val*rat;
-    }
-    template <typename T>
-    inline friend Ratio operator*(const Ratio &rat, const T &value) 
     {
         Ratio val(value);
         return val*rat;
@@ -117,23 +110,19 @@ public :
         Ratio val(value);
         return rat/val;
     }
-    template <typename T>
-    inline friend Ratio operator/(const T &value, const Ratio &rat) 
-    {
-        Ratio val(value);
-        return val/rat;
-    }
 
     /// \brief unary minus
     inline friend Ratio operator-(const Ratio &rat) {return Ratio(-rat.m_numerator,rat.m_denominator);}
 
+
+    static Ratio abs(const Ratio & rat);
+    static Ratio floor(const Ratio & rat);
 
     static Ratio sin(const Ratio & rat);
     static Ratio cos(const Ratio & rat);
     static Ratio tan(const Ratio & rat);
     static Ratio exp(const Ratio & rat);
     static Ratio log(const Ratio & rat);
-    static Ratio abs(const Ratio & rat);
     static Ratio sqrt(const Ratio & rat);
     template <typename T>
     static Ratio pow(const Ratio & rat, const T &n);

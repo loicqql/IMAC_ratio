@@ -63,7 +63,7 @@ void Ratio::irreducible()
 
 void Ratio::inverse()
 {   
-    assert(this->m_denominator!=0 && "Can't invert infinite numbers"); 
+    //assert(this->m_denominator!=0 && "Can't invert infinite numbers"); 
 
     int sign=1;
     if (this->m_numerator<0)
@@ -86,10 +86,6 @@ Ratio Ratio::operator*(const Ratio &r) const
 {
     int num = this->m_numerator * r.m_numerator;
     int den = this->m_denominator * r.m_denominator;
-    if(num == den) { // integer found
-        num = this->m_denominator;
-        den = 1;
-    }
     return Ratio(num, den);
 }
 
@@ -97,10 +93,6 @@ Ratio Ratio::operator+(const Ratio &r) const
 {
     int num = this->m_numerator * r.m_denominator + this->m_denominator * r.m_numerator;
     int den = this->m_denominator * r.m_denominator;
-    if(num == den) { // integer found
-        num = this->m_denominator;
-        den = 1;
-    }
     return Ratio(num, den);
 }
 
@@ -108,10 +100,6 @@ Ratio Ratio::operator-(const Ratio &r) const
 {
     int num = this->m_numerator * r.m_denominator - this->m_denominator * r.m_numerator;
     int den = this->m_denominator * r.m_denominator;
-    if(num == den) { // integer found
-        num = this->m_denominator;
-        den = 1;
-    }
     return Ratio(num, den);
 }
 
@@ -124,9 +112,17 @@ Ratio Ratio::operator/(Ratio rat) const
 
 //mathematical fonctions
 
+Ratio Ratio::abs(const Ratio & rat){
+    return Ratio(std::abs(rat.m_numerator),rat.m_denominator);
+}
+
+Ratio Ratio::floor(const Ratio & rat){
+    return Ratio(rat.m_numerator/int(rat.m_denominator),rat.m_denominator);
+}
+
+//optionnal
 Ratio Ratio::sin(const Ratio & rat){
     double value=std::sin(double(rat.m_numerator)/double(rat.m_denominator));
-    std::cout << value << std::endl;
     Ratio result(value);
     return result;
 }
@@ -147,14 +143,12 @@ Ratio Ratio::exp(const Ratio & rat){
 }
  
 Ratio Ratio::log(const Ratio & rat){
-    return Ratio(std::log(rat.m_numerator),rat.m_numerator/rat.m_numerator);
+    return Ratio(std::log(rat.m_numerator)-std::log(rat.m_denominator));
 }
 
-// Ratio Ratio::abs(const Ratio & rat){
-//     return Ratio(std::abs(rat.m_numerator),rat.m_numerator*sign(rat.m_numerator));
-// }
-
-// Ratio Ratio::pow(const Ratio & rat, const T &n){
+// Ratio Ratio::pow(const Ratio & rat, const T &tio::abs(const Ratio & rat){
+//     return Ratio(std::abs(rat.m_numerator),rat.m_denominator);
+// }n){
 //     return Ratio(std::pow(rat.m_numerator,n),n*rat.m_numerator*std::pow(rat.m_numerator,n-1));
 // }
 
