@@ -1,13 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
 
 # give a name to the project
-project(ratio)
+project(ratio LANGUAGES C CXX)
 
 # automatic get all files in a directory
-# file(GLOB_RECURSE source_files src/*.cpp)
-# file(GLOB_RECURSE header_files include/*.hpp)
-
-set(header_files ./include/Ratio.hpp)
+file(GLOB_RECURSE source_files src/*.cpp)
+file(GLOB_RECURSE header_files include/*.hpp)
 
 # call the CMakeLists.txt to make the documentation (Doxygen)
 find_package(Doxygen OPTIONAL_COMPONENTS QUIET)
@@ -21,8 +19,8 @@ endif()
 # default STATIC ??
 # SHARED to make a .so instead of a .a
 # add_library(ganQ SHARED ${source_files} ${header_files})
-add_library(Ratio ${header_files})
-set_target_properties(Ratio PROPERTIES LINKER_LANGUAGE CXX)
+add_library(Ratio ${source_files} ${header_files})
+# set_target_properties(Ratio PROPERTIES LINKER_LANGUAGE CXX)
 
 # compilation flags
 target_compile_features(Ratio PRIVATE cxx_std_17) # use at least c++ 17

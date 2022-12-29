@@ -3,7 +3,7 @@
 #include "Ratio.hpp"
 
 
-int main(int argc, char **argv) {
+int main() {
 
     //contructors
     Ratio rat(3, 2);
