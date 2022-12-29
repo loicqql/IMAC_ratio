@@ -124,8 +124,7 @@ public :
     static Ratio exp(const Ratio & rat);
     static Ratio log(const Ratio & rat);
     static Ratio sqrt(const Ratio & rat);
-    template <typename T>
-    static Ratio pow(const Ratio & rat, const T &n);
+    static Ratio pow(Ratio rat, double n);
 
 
     // Utilities 

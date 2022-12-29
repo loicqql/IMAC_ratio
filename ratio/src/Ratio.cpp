@@ -109,46 +109,58 @@ Ratio Ratio::operator/(Ratio rat) const
 
 //mathematical fonctions
 
-Ratio Ratio::abs(const Ratio & rat){
+Ratio Ratio::abs(const Ratio & rat)
+{
     return Ratio(std::abs(rat.m_numerator),rat.m_denominator);
 }
 
-Ratio Ratio::floor(const Ratio & rat){
+Ratio Ratio::floor(const Ratio & rat)
+{
     return Ratio(rat.m_numerator-rat.m_numerator%int(rat.m_denominator),rat.m_denominator);
 }
 
 //optionnal
-Ratio Ratio::sin(const Ratio & rat){
+Ratio Ratio::sin(const Ratio & rat)
+{
     double value=std::sin(double(rat.m_numerator)/double(rat.m_denominator));
     Ratio result(value);
     return result;
 }
 
-Ratio Ratio::cos(const Ratio & rat){
+Ratio Ratio::cos(const Ratio & rat)
+{
     double value=std::cos(double(rat.m_numerator)/double(rat.m_denominator));
     Ratio result(value);
     return result;
 }
 
-Ratio Ratio::tan(const Ratio & rat){
+Ratio Ratio::tan(const Ratio & rat)
+{
     return Ratio::sin(rat)/Ratio::cos(rat);
 }
 
-Ratio Ratio::exp(const Ratio & rat){
+Ratio Ratio::exp(const Ratio & rat)
+{
     double value=std::exp(rat.m_numerator/rat.m_denominator);
     return Ratio(value);
 }
 
-Ratio Ratio::log(const Ratio & rat){
-    return Ratio(std::log(rat.m_numerator)-std::log(rat.m_denominator));
+Ratio Ratio::log(const Ratio & rat)
+{
+    return Ratio(std::log(double(rat.m_numerator))-std::log(double(rat.m_denominator)));
 }
 
-// Ratio Ratio::pow(const Ratio & rat, const T &tio::abs(const Ratio & rat){
-//     return Ratio(std::abs(rat.m_numerator),rat.m_denominator);
-// }n){
-//     return Ratio(std::pow(rat.m_numerator,n),n*rat.m_numerator*std::pow(rat.m_numerator,n-1));
-// }
+Ratio Ratio::pow(Ratio rat, double n)
+{
+    if(n<0)
+    {
+        rat.inverse();
+        n=-n;
+    }
+    return Ratio(std::pow(rat.m_numerator,n),std::pow(rat.m_denominator,n));
+}
 
-// Ratio Ratio::sqrt(const Ratio & rat){
-//     return Ratio(std::sqrt(rat.m_numerator),rat.m_numerator/(2*std::sqrt(rat.m_numerator)));
-// }
+Ratio Ratio::sqrt(const Ratio & rat)
+{
+    return Ratio(std::sqrt(rat.m_numerator),std::sqrt(rat.m_denominator));
+}
