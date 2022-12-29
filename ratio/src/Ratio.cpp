@@ -6,40 +6,35 @@
 #include "Ratio.hpp"
 
 // Utilities 
-template <typename R>
-Ratio convertRealToRatio(R real, uint nb_iter)
+Ratio convertRealToRatio(float real, uint nb_iter)
 {
     //1st stopping condition : return 0/1
     if(real==0){return Ratio();}
 
     //2nd stopping condition : return 0/1
     if(nb_iter==0){return Ratio();}
-    
-    //sign gestion
-    int sign = 1;
-    if(real<0){ sign=-1; real=-real;}
 
     //case |real|<1
     if(real<1)
     {
         Ratio rat=convertRealToRatio(1/real,nb_iter);
         rat.inverse();
-        return sign*rat;
+        return rat;
     }
 
     //case |real|>=1
     else
     {
         int q=floor(real);
-        return sign*(Ratio(q,1) + convertRealToRatio(real-q, nb_iter-1));
+        return (Ratio(q,1) + convertRealToRatio(real-q, nb_iter-1));
     }
 }
 
-template <typename R>
-Ratio::Ratio(const R &real)
+Ratio::Ratio(const float &real)
 {
     uint nb_iter=100;
-    *this = convertRealToRatio(real,nb_iter);
+    int sign = real < 0 ? -1 : 1;
+    *this = Ratio(sign,1) * convertRealToRatio(std::abs(real),nb_iter);
 }
 
 std::ostream& operator<<(std::ostream& stream, const Ratio& r)

@@ -21,5 +21,13 @@ int main() {
     //operator -
     std::cout << rat << " - " << rat2 << " = " << rat - rat2 << std::endl;
 
+    // std::cout << rat << std::endl;
+
+    Ratio rat5 = Ratio(1.5);
+    std::cout << rat5 << std::endl;
+
+    Ratio rat6 = Ratio(-1.5);
+    std::cout << rat6 << std::endl;
+
     return 0;
 }

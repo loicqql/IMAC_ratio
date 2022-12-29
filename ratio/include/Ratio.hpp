@@ -53,8 +53,7 @@ public :
     /// @brief Constructor which transforms a real into a Ratio
     /// @param real : a real to convert into a ratio
     /// @return a ratio equal to real
-    template <typename R>
-    Ratio(const R &real);
+    Ratio(const float &real);
 
     /// \brief destructor
     ~Ratio() = default;
