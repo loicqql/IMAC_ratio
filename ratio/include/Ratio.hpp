@@ -12,10 +12,7 @@
 /// \section instroduction_sec What for?
 /// Ratio is a super tool :).
 /// \section install_bigsec How to install
-/// \subsection depen
-
-
-/////////////////////////////////////////////////////
+/// \subsection dependencies_sec Dependecies
 /// \li nothing
 /// \li Doxygen (if you want the documentation)
 /// \subsection install_sec Install with cmake (Linux / Mac)
@@ -131,11 +128,6 @@ public :
     /// \brief unary minus
     inline friend Ratio operator-(const Ratio &rat) {return Ratio(-rat.m_numerator,rat.m_denominator);}
 
-    /// \brief overload the operator << for Ratio
-    /// \param stream : input stream
-    /// \param v : the ratio to output
-    /// \return the output stream containing the ratio data
-    friend std::ostream& operator<<(std::ostream& stream, const Ratio& r);
 
     static Ratio sin(const Ratio & rat);
     static Ratio cos(const Ratio & rat);
@@ -146,5 +138,14 @@ public :
     static Ratio sqrt(const Ratio & rat);
     template <typename T>
     static Ratio pow(const Ratio & rat, const T &n);
+
+
+    // Utilities 
+
+    /// \brief overload the operator << for Ratio
+    /// \param stream : input stream
+    /// \param v : the ratio to output
+    /// \return the output stream containing the ratio data
+    friend std::ostream& operator<<(std::ostream& stream, const Ratio& r);
 
 };

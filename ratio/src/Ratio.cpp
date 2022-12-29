@@ -5,13 +5,7 @@
 
 #include "Ratio.hpp"
 
-Ratio::Ratio(const int &numerator, const uint &denominator)
-{
-    this->m_numerator=numerator;
-    this->m_denominator=denominator;
-    this->irreducible();
-}
-
+// Utilities 
 template <typename R>
 Ratio convertRealToRatio(R real, uint nb_iter)
 {
@@ -46,6 +40,22 @@ Ratio::Ratio(const R &real)
 {
     uint nb_iter=100;
     *this = convertRealToRatio(real,nb_iter);
+}
+
+std::ostream& operator<<(std::ostream& stream, const Ratio& r)
+{
+    stream << "(" << r.m_numerator << "/" << r.m_denominator << ")";
+    return stream;
+}
+
+
+// Ratio's functions
+
+Ratio::Ratio(const int &numerator, const uint &denominator)
+{
+    this->m_numerator=numerator;
+    this->m_denominator=denominator;
+    this->irreducible();
 }
 
 void Ratio::irreducible()
@@ -153,9 +163,3 @@ Ratio Ratio::tan(const Ratio & rat){
 // Ratio Ratio::sqrt(const Ratio & rat){
 //     return Ratio(std::sqrt(rat.m_numerator),rat.m_numerator/(2*std::sqrt(rat.m_numerator)));
 // }
-
-std::ostream& operator<<(std::ostream& stream, const Ratio& r)
-{
-    stream << "(" << r.m_numerator << "/" << r.m_denominator << ")";
-    return stream;
-}
