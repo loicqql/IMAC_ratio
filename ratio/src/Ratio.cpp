@@ -117,7 +117,7 @@ Ratio Ratio::abs(const Ratio & rat){
 }
 
 Ratio Ratio::floor(const Ratio & rat){
-    return Ratio(rat.m_numerator/int(rat.m_denominator),rat.m_denominator);
+    return Ratio(rat.m_numerator-rat.m_numerator%int(rat.m_denominator),rat.m_denominator);
 }
 
 //optionnal

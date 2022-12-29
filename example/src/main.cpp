@@ -26,7 +26,7 @@ int main() {
 
     Ratio rat6 = Ratio(-1.5);
     std::cout << rat6 << std::endl;
-    rat6=Ratio::floor(rat6);
+    //rat6=Ratio::floor(rat6);
     std::cout << rat6 << std::endl;
     rat6=Ratio::abs(rat6);
     std::cout << rat6 << std::endl;
