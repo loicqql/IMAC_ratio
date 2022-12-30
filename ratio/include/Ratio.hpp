@@ -39,7 +39,7 @@ private :
 public :
 
     /// \brief defaultConstructor equal to 0
-    Ratio() : m_numerator(0), m_denominator(1) {};
+    constexpr Ratio() : m_numerator(0), m_denominator(1) {};
 
 	/// \brief constructor from a numerator and a denominator
 	/// \param numerator : int : the numerator of the requested rational
@@ -48,28 +48,28 @@ public :
 
     /// \brief copyConstructor
     /// \param rat : Ratio copied
-    Ratio(const Ratio &rat) : m_numerator(rat.m_numerator), m_denominator(rat.m_denominator) {};
+    constexpr Ratio(const Ratio &rat) : m_numerator(rat.m_numerator), m_denominator(rat.m_denominator) {};
 
     /// @brief Constructor which transforms a double into a Ratio
     /// @param real : a number to convert into a ratio
     /// @return a ratio equal to real
     template <typename T>
-    Ratio(const T &real);
+    constexpr Ratio(const T &real);
 
     /// \brief destructor
     ~Ratio() = default;
 
     /// \brief get numerator
-    inline int & numerator() {return m_numerator;};
+    constexpr inline int & numerator() {return m_numerator;};
 
     /// \brief get denominator
-    inline uint & denominator() {return m_denominator;};
+    constexpr inline uint & denominator() {return m_denominator;};
 
     /// \brief get numerator
-    inline const int & numerator() const {return m_numerator;};
+    constexpr inline const int & numerator() const {return m_numerator;};
 
     /// \brief get denominator
-    inline const uint & denominator() const {return m_denominator;};
+    constexpr inline const uint & denominator() const {return m_denominator;};
 
     /// \brief transforms a Ratio into an irreducible fraction
     void irreducible();
@@ -107,16 +107,16 @@ public :
 
 
     template <typename T>
-    friend Ratio operator*(const Ratio &rat, const T &value); 
+    constexpr friend Ratio operator*(const Ratio &rat, const T &value); 
 
     template <typename T>
-    friend Ratio operator/(const Ratio &rat, const T &value);
+    constexpr friend Ratio operator/(const Ratio &rat, const T &value);
 
     template <typename T>
-    friend Ratio operator+(const Ratio &rat, const T &value);
+    constexpr friend Ratio operator+(const Ratio &rat, const T &value);
 
     template <typename T>
-    friend Ratio operator-(const Ratio &rat, const T &value);
+    constexpr friend Ratio operator-(const Ratio &rat, const T &value);
 
     /// \brief unary minus
     inline friend Ratio operator-(const Ratio &rat) {return Ratio(-rat.m_numerator,rat.m_denominator);}
@@ -132,7 +132,7 @@ public :
     friend Ratio sqrt(const Ratio & rat);
 
     template <typename T>
-    friend Ratio pow(Ratio rat, T n);
+    constexpr friend Ratio pow(Ratio rat, T n);
 
 
     // Utilities 
@@ -147,7 +147,7 @@ public :
 
 //Utilities
 template <typename T>
-Ratio convertRealToRatio(T real, uint nb_iter)
+constexpr Ratio convertRealToRatio(T real, uint nb_iter)
 {
     //1st stopping condition : return 0/1
     if(real==static_cast<T>(0)){return Ratio();}
@@ -174,7 +174,7 @@ Ratio convertRealToRatio(T real, uint nb_iter)
 
 // Template functions
 template <typename T>
-Ratio::Ratio(const T &real)
+constexpr Ratio::Ratio(const T &real)
 {
     static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
     uint nb_iter=100;
@@ -187,7 +187,7 @@ Ratio::Ratio(const T &real)
 //operators
 
 template <typename T>
-Ratio operator*(const Ratio &rat, const T &value) 
+constexpr Ratio operator*(const Ratio &rat, const T &value) 
 {
     static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
     Ratio val(value);
@@ -195,7 +195,7 @@ Ratio operator*(const Ratio &rat, const T &value)
 }
 
 template <typename T>
-Ratio operator/(const Ratio &rat, const T &value) 
+constexpr Ratio operator/(const Ratio &rat, const T &value) 
 {
     static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
     Ratio val(value);
@@ -203,7 +203,7 @@ Ratio operator/(const Ratio &rat, const T &value)
 }
 
 template <typename T>
-Ratio operator+(const Ratio &rat, const T &value) 
+constexpr Ratio operator+(const Ratio &rat, const T &value) 
 {
     static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
     Ratio val(value);
@@ -211,7 +211,7 @@ Ratio operator+(const Ratio &rat, const T &value)
 }
 
 template <typename T>
-Ratio operator-(const Ratio &rat, const T &value) 
+constexpr Ratio operator-(const Ratio &rat, const T &value) 
 {
     static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
     Ratio val(value);
@@ -220,7 +220,7 @@ Ratio operator-(const Ratio &rat, const T &value)
 
 //pow
 template <typename T>
-Ratio pow(Ratio rat, T n)
+constexpr Ratio pow(Ratio rat, T n)
 {
     static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
     if(n<static_cast<T>(0))
