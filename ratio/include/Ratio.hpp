@@ -51,9 +51,10 @@ public :
     Ratio(const Ratio &rat) : m_numerator(rat.m_numerator), m_denominator(rat.m_denominator) {};
 
     /// @brief Constructor which transforms a double into a Ratio
-    /// @param real : a double to convert into a ratio
+    /// @param real : a number to convert into a ratio
     /// @return a ratio equal to real
-    Ratio(const double &real);
+    template <typename T>
+    Ratio(const T &real);
 
     /// \brief destructor
     ~Ratio() = default;
@@ -98,33 +99,32 @@ public :
 
 
     template <typename T>
-    inline friend Ratio operator*(const T &value, const Ratio &rat) 
-    {
-        Ratio val(value);
-        return val*rat;
-    }
+    friend Ratio operator*(const Ratio &rat, const T &value); 
 
     template <typename T>
-    inline friend Ratio operator/(const Ratio &rat, const T &value) 
-    {
-        Ratio val(value);
-        return rat/val;
-    }
+    friend Ratio operator/(const Ratio &rat, const T &value);
+
+    template <typename T>
+    friend Ratio operator+(const Ratio &rat, const T &value);
+
+    template <typename T>
+    friend Ratio operator-(const Ratio &rat, const T &value);
 
     /// \brief unary minus
     inline friend Ratio operator-(const Ratio &rat) {return Ratio(-rat.m_numerator,rat.m_denominator);}
 
 
-    static Ratio abs(const Ratio & rat);
-    static Ratio floor(const Ratio & rat);
+    friend Ratio abs(const Ratio & rat);
+    friend Ratio floor(const Ratio & rat);
+    friend Ratio sin(const Ratio & rat);
+    friend Ratio cos(const Ratio & rat);
+    friend Ratio tan(const Ratio & rat);
+    friend Ratio exp(const Ratio & rat);
+    friend Ratio log(const Ratio & rat);
+    friend Ratio sqrt(const Ratio & rat);
 
-    static Ratio sin(const Ratio & rat);
-    static Ratio cos(const Ratio & rat);
-    static Ratio tan(const Ratio & rat);
-    static Ratio exp(const Ratio & rat);
-    static Ratio log(const Ratio & rat);
-    static Ratio sqrt(const Ratio & rat);
-    static Ratio pow(Ratio rat, double n);
+    template <typename T>
+    friend Ratio pow(Ratio rat, T n);
 
 
     // Utilities 
@@ -136,3 +136,89 @@ public :
     friend std::ostream& operator<<(std::ostream& stream, const Ratio& r);
 
 };
+
+//Utilities
+template <typename T>
+Ratio convertRealToRatio(T real, uint nb_iter)
+{
+    //1st stopping condition : return 0/1
+    if(real==static_cast<T>(0)){return Ratio();}
+
+    //2nd stopping condition : return 0/1
+    if(nb_iter==0){return Ratio();}
+
+    //case |real|<1
+    if(real < static_cast<T>(1))
+    {
+        Ratio rat=convertRealToRatio<T>(static_cast<T>(1)/real,nb_iter);
+        rat.inverse();
+        return rat;
+    }
+
+    //case |real|>=1
+    else
+    {
+        int q=floor(real);
+        return (Ratio(q,1) + convertRealToRatio<T>(real-q, nb_iter-1));
+    }
+}
+
+
+// Template functions
+template <typename T>
+Ratio::Ratio(const T &real)
+{
+    static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
+    uint nb_iter=100;
+    int sign = real < static_cast<T>(0) ? -1 : 1;
+    *this = Ratio(sign,1) * convertRealToRatio<T>(std::abs(real),nb_iter);
+    this->irreducible();
+}
+
+
+//operators
+
+template <typename T>
+Ratio operator*(const Ratio &rat, const T &value) 
+{
+    static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
+    Ratio val(value);
+    return rat*val;
+}
+
+template <typename T>
+Ratio operator/(const Ratio &rat, const T &value) 
+{
+    static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
+    Ratio val(value);
+    return rat/val;
+}
+
+template <typename T>
+Ratio operator+(const Ratio &rat, const T &value) 
+{
+    static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
+    Ratio val(value);
+    return rat+val;
+}
+
+template <typename T>
+Ratio operator-(const Ratio &rat, const T &value) 
+{
+    static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
+    Ratio val(value);
+    return rat-val;
+}
+
+//pow
+template <typename T>
+Ratio pow(Ratio rat, T n)
+{
+    static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
+    if(n<static_cast<T>(0))
+    {
+        rat.inverse();
+        n=-n;
+    }
+    return Ratio(std::pow(rat.m_numerator,n),std::pow(rat.m_denominator,n));
+}
