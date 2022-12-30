@@ -161,6 +161,8 @@ TEST (operators, unary_minus) {
 /////////////////////////////////////////////////////
 // comparison functions
 
+/// less_or_equal
+
 TEST (comparison, less_or_equal) { 
 	Ratio rat(3, 2);
 	Ratio rat2(1, 2);
@@ -169,6 +171,8 @@ TEST (comparison, less_or_equal) {
 	rat2 = rat2 + 1;
 	ASSERT_EQ(rat <= rat2, true);
 }
+
+/// greater_or_equal
 
 TEST (comparison, greater_or_equal) { 
 	Ratio rat(1, 2);
@@ -179,6 +183,8 @@ TEST (comparison, greater_or_equal) {
 	ASSERT_EQ(rat >= rat2, true);
 }
 
+/// less
+
 TEST (comparison, less) { 
 	Ratio rat(3, 2);
 	Ratio rat2(1, 2);
@@ -187,6 +193,8 @@ TEST (comparison, less) {
 	rat2 = rat2 + 1;
 	ASSERT_EQ(rat < rat2, false);
 }
+
+/// greater
 
 TEST (comparison, greater) { 
 	Ratio rat(1, 2);
@@ -197,6 +205,8 @@ TEST (comparison, greater) {
 	ASSERT_EQ(rat > rat2, false);
 }
 
+/// equal
+
 TEST (comparison, equal) { 
 	Ratio rat(1, 2);
 	Ratio rat2(3, 2);
@@ -205,6 +215,8 @@ TEST (comparison, equal) {
 	rat = rat + 1;
 	ASSERT_EQ(rat == rat2, true);
 }
+
+/// not_equal
 
 TEST (comparison, not_equal) { 
 	Ratio rat(1, 2);
