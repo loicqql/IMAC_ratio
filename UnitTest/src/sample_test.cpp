@@ -159,6 +159,63 @@ TEST (operators, unary_minus) {
 }
 
 /////////////////////////////////////////////////////
+// comparison functions
+
+TEST (comparison, less_or_equal) { 
+	Ratio rat(3, 2);
+	Ratio rat2(1, 2);
+	ASSERT_EQ(rat <= rat2, false);
+
+	rat2 = rat2 + 1;
+	ASSERT_EQ(rat <= rat2, true);
+}
+
+TEST (comparison, greater_or_equal) { 
+	Ratio rat(1, 2);
+	Ratio rat2(3, 2);
+	ASSERT_EQ(rat >= rat2, false);
+
+	rat = rat + 1;
+	ASSERT_EQ(rat >= rat2, true);
+}
+
+TEST (comparison, less) { 
+	Ratio rat(3, 2);
+	Ratio rat2(1, 2);
+	ASSERT_EQ(rat < rat2, false);
+
+	rat2 = rat2 + 1;
+	ASSERT_EQ(rat < rat2, false);
+}
+
+TEST (comparison, greater) { 
+	Ratio rat(1, 2);
+	Ratio rat2(3, 2);
+	ASSERT_EQ(rat > rat2, false);
+
+	rat = rat + 1;
+	ASSERT_EQ(rat > rat2, false);
+}
+
+TEST (comparison, equal) { 
+	Ratio rat(1, 2);
+	Ratio rat2(3, 2);
+	ASSERT_EQ(rat == rat2, false);
+
+	rat = rat + 1;
+	ASSERT_EQ(rat == rat2, true);
+}
+
+TEST (comparison, not_equal) { 
+	Ratio rat(1, 2);
+	Ratio rat2(3, 2);
+	ASSERT_EQ(rat != rat2, true);
+
+	rat = rat + 1;
+	ASSERT_EQ(rat != rat2, false);
+}
+
+/////////////////////////////////////////////////////
 // mathematical functions
 
 /// abs

@@ -73,6 +73,38 @@ Ratio Ratio::operator/(Ratio rat) const
     return *this*rat;
 }
 
+//comparison operators
+
+bool Ratio::operator<=(const Ratio& rat) const
+{
+    return (this->m_numerator / this->m_denominator) <= (rat.m_numerator / rat.m_denominator);
+}
+
+bool Ratio::operator>=(const Ratio& rat) const
+{
+    return (this->m_numerator / this->m_denominator) >= (rat.m_numerator / rat.m_denominator);
+}
+
+bool Ratio::operator<(const Ratio& rat) const
+{
+    return (this->m_numerator / this->m_denominator) < (rat.m_numerator / rat.m_denominator);
+}
+
+bool Ratio::operator>(const Ratio& rat) const
+{
+    return (this->m_numerator / this->m_denominator) > (rat.m_numerator / rat.m_denominator);
+}
+
+bool Ratio::operator==(const Ratio& rat) const
+{
+    return (this->m_numerator == rat.m_numerator) && (this->m_denominator == rat.m_denominator);
+}
+
+bool Ratio::operator!=(const Ratio& rat) const
+{
+    return (this->m_numerator / this->m_denominator) != (rat.m_numerator / rat.m_denominator);
+}
+
 //mathematical fonctions
 
 Ratio abs(const Ratio & rat)

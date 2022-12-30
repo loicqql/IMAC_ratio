@@ -97,6 +97,14 @@ public :
 	/// \param the rational
     Ratio operator/(Ratio r) const;
 
+    
+    bool operator<=(const Ratio& rat) const;
+    bool operator>=(const Ratio& rat) const;
+    bool operator<(const Ratio& rat) const;
+    bool operator>(const Ratio& rat) const;
+    bool operator==(const Ratio& rat) const;
+    bool operator!=(const Ratio& rat) const;
+
 
     template <typename T>
     friend Ratio operator*(const Ratio &rat, const T &value); 
