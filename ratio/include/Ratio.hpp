@@ -50,9 +50,9 @@ public :
     /// \param rat : Ratio copied
     constexpr Ratio(const Ratio &rat) : m_numerator(rat.m_numerator), m_denominator(rat.m_denominator) {};
 
-    /// @brief Constructor which transforms a double into a Ratio
+    /// @brief Constructor which transforms a real into a Ratio
     /// @param real : a number to convert into a ratio
-    /// @return a ratio equal to real
+    /// @return a ratio equal to the real
     template <typename T>
     constexpr Ratio(const T &real);
 
