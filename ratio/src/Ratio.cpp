@@ -5,11 +5,7 @@
 
 #include "Ratio.hpp"
 
-std::ostream& operator<<(std::ostream& stream, const Ratio& r)
-{
-    stream << "(" << r.m_numerator << "/" << r.m_denominator << ")";
-    return stream;
-}
+using namespace rto;
 
 // Ratio's functions
 
@@ -103,52 +99,4 @@ bool Ratio::operator==(const Ratio& rat) const
 bool Ratio::operator!=(const Ratio& rat) const
 {
     return (this->m_numerator / this->m_denominator) != (rat.m_numerator / rat.m_denominator);
-}
-
-//mathematical fonctions
-
-Ratio Ratio::abs(const Ratio & rat)
-{
-    return Ratio(std::abs(rat.m_numerator),rat.m_denominator);
-}
-
-Ratio Ratio::floor(const Ratio & rat)
-{
-    return Ratio(rat.m_numerator-rat.m_numerator%int(rat.m_denominator),rat.m_denominator);
-}
-
-//optionnal
-Ratio Ratio::sin(const Ratio & rat)
-{
-    double value=std::sin(double(rat.m_numerator)/double(rat.m_denominator));
-    Ratio result(value);
-    return result;
-}
-
-Ratio Ratio::cos(const Ratio & rat)
-{
-    double value=std::cos(double(rat.m_numerator)/double(rat.m_denominator));
-    Ratio result(value);
-    return result;
-}
-
-Ratio Ratio::tan(const Ratio & rat)
-{
-    return sin(rat)/cos(rat);
-}
-
-Ratio Ratio::exp(const Ratio & rat)
-{
-    double value=std::exp(rat.m_numerator/rat.m_denominator);
-    return Ratio(value);
-}
-
-Ratio Ratio::log(const Ratio & rat)
-{
-    return Ratio(std::log(double(rat.m_numerator))-std::log(double(rat.m_denominator)));
-}
-
-Ratio Ratio::sqrt(const Ratio & rat)
-{
-    return Ratio(std::sqrt(rat.m_numerator),std::sqrt(rat.m_denominator));
 }

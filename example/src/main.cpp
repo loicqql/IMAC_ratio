@@ -13,6 +13,8 @@
 
 #include "Ratio.hpp"
 
+using namespace rto;
+
 //https://stackoverflow.com/questions/29997096/bold-output-in-c
 class bold {
     std::string_view const &s;
@@ -28,7 +30,8 @@ public:
 void title();
 
 
-int main() {
+int main()
+{
 
     title();
 
@@ -128,20 +131,21 @@ int main() {
         std::cout << bold("-mathematical functions") << std::endl;
         Ratio rat(0.5);
         std::cout << "Ratio rat(0.5)" << std::endl;
-        std::cout << "Ratio::abs(-rat) = " << Ratio::abs(-rat) << std::endl;
-        std::cout << "Ratio::floor(rat) = " << Ratio::floor(rat) << std::endl;
-        std::cout << "Ratio::sin(rat) = " << Ratio::sin(rat) << " = " << (double)Ratio::sin(rat).numerator() /  Ratio::sin(rat).denominator() << " (not recommended)" << std::endl;
-        std::cout << "Ratio::cos(rat) = " << Ratio::cos(rat) << " = " << (double)Ratio::cos(rat).numerator() /  Ratio::cos(rat).denominator() << " (not recommended)" << std::endl;
-        std::cout << "Ratio::tan(rat) = " << Ratio::tan(rat) << " = " << (double)Ratio::tan(rat).numerator() /  Ratio::tan(rat).denominator() << " (not recommended)" << std::endl;
-        std::cout << "Ratio::log(rat) = " << Ratio::log(rat) << " = " << (double)Ratio::log(rat).numerator() /  Ratio::log(rat).denominator() << " (not recommended)" << std::endl;
-        std::cout << "Ratio::sqrt(rat) = " << Ratio::sqrt(rat) << std::endl;
+        std::cout << "Ratio::abs(-rat) = " << abs(-rat) << std::endl;
+        std::cout << "Ratio::floor(rat) = " << floor(rat) << std::endl;
+        std::cout << "Ratio::sin(rat) = " << sin(rat) << " = " << (double)sin(rat).numerator() /  sin(rat).denominator() << " (not recommended)" << std::endl;
+        std::cout << "Ratio::cos(rat) = " << cos(rat) << " = " << (double)cos(rat).numerator() /  cos(rat).denominator() << " (not recommended)" << std::endl;
+        std::cout << "Ratio::tan(rat) = " << tan(rat) << " = " << (double)tan(rat).numerator() /  tan(rat).denominator() << " (not recommended)" << std::endl;
+        std::cout << "Ratio::log(rat) = " << log(rat) << " = " << (double)log(rat).numerator() /  log(rat).denominator() << " (not recommended)" << std::endl;
+        std::cout << "Ratio::sqrt(rat) = " << sqrt(rat) << std::endl;
         std::cout << std::endl;
     }
 
     return 0;
 }
 
-void title() {
+void title()
+{
     printf(R"EOF(
  ________   ________   _________   ___   ________     
 |\   __  \ |\   __  \ |\___   ___\|\  \ |\   __  \    
