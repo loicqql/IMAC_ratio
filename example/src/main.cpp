@@ -27,17 +27,17 @@ int main() {
     //floor et abs
     Ratio rat6(-1.5);
     std::cout << rat6 << std::endl;
-    rat6=floor(rat6);
+    rat6=Ratio::floor(rat6);
     std::cout << rat6 << std::endl;
-    rat6=abs(rat6);
+    rat6=Ratio::abs(rat6);
     std::cout << rat6 << std::endl;
 
     Ratio ratPow(2,5);
-    ratPow=pow<int>(ratPow,-2);
+    ratPow=Ratio::pow<int>(ratPow,-2);
     std::cout << ratPow << std::endl;
 
     Ratio ratSqrt(9,25);
-    ratSqrt=sqrt(ratSqrt);
+    ratSqrt=Ratio::sqrt(ratSqrt);
     std::cout << ratSqrt << std::endl;
 
     return 0;

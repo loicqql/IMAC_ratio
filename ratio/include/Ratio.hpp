@@ -122,17 +122,17 @@ public :
     inline friend Ratio operator-(const Ratio &rat) {return Ratio(-rat.m_numerator,rat.m_denominator);}
 
 
-    friend Ratio abs(const Ratio & rat);
-    friend Ratio floor(const Ratio & rat);
-    friend Ratio sin(const Ratio & rat);
-    friend Ratio cos(const Ratio & rat);
-    friend Ratio tan(const Ratio & rat);
-    friend Ratio exp(const Ratio & rat);
-    friend Ratio log(const Ratio & rat);
-    friend Ratio sqrt(const Ratio & rat);
+    static Ratio abs(const Ratio & rat);
+    static Ratio floor(const Ratio & rat);
+    static Ratio sin(const Ratio & rat);
+    static Ratio cos(const Ratio & rat);
+    static Ratio tan(const Ratio & rat);
+    static Ratio exp(const Ratio & rat);
+    static Ratio log(const Ratio & rat);
+    static Ratio sqrt(const Ratio & rat);
 
     template <typename T>
-    constexpr friend Ratio pow(Ratio rat, T n);
+    constexpr static Ratio pow(Ratio rat, T n);
 
 
     // Utilities 
@@ -220,7 +220,7 @@ constexpr Ratio operator-(const Ratio &rat, const T &value)
 
 //pow
 template <typename T>
-constexpr Ratio pow(Ratio rat, T n)
+constexpr Ratio Ratio::pow(Ratio rat, T n)
 {
     static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
     if(n<static_cast<T>(0))

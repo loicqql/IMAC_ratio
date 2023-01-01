@@ -234,7 +234,7 @@ TEST (comparison, not_equal) {
 
 TEST (math_functions, abs) { 
 	Ratio rat(-5, 2);
-	rat = abs(rat);
+	rat = Ratio::abs(rat);
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 5.0/2.0);
 }
 
@@ -242,7 +242,7 @@ TEST (math_functions, abs) {
 
 TEST (math_functions, floor) { 
 	Ratio rat(5, 2);
-	rat = floor(rat);
+	rat = Ratio::floor(rat);
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 2.0);
 }
 
@@ -250,7 +250,7 @@ TEST (math_functions, floor) {
 
 TEST (math_functions, sin) { 
 	Ratio rat(M_PI);
-	rat = sin(rat);
+	rat = Ratio::sin(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::sin(M_PI), 0.1);
 }
 
@@ -258,7 +258,7 @@ TEST (math_functions, sin) {
 
 TEST (math_functions, cos) { 
 	Ratio rat(M_PI);
-	rat = cos(rat);
+	rat = Ratio::cos(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::cos(M_PI), 0.1);
 }
 
@@ -266,7 +266,7 @@ TEST (math_functions, cos) {
 
 TEST (math_functions, tan) { 
 	Ratio rat(M_PI);
-	rat = tan(rat);
+	rat = Ratio::tan(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::tan(M_PI), 0.1);
 }
 
@@ -274,7 +274,7 @@ TEST (math_functions, tan) {
 
 TEST (math_functions, exp) { 
 	Ratio rat(5,2);
-	rat = exp(rat);
+	rat = Ratio::exp(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::exp(5.0/2.0), 0.1);
 }
 
@@ -282,7 +282,7 @@ TEST (math_functions, exp) {
 
 TEST (math_functions, log) { 
 	Ratio rat(5,2);
-	rat = log(rat);
+	rat = Ratio::log(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::log(5.0/2.0), 0.1);
 }
 
@@ -290,6 +290,6 @@ TEST (math_functions, log) {
 
 TEST (math_functions, sqrt) { 
 	Ratio rat(5,2);
-	rat = sqrt(rat);
+	rat = Ratio::sqrt(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::sqrt(5.0/2.0), 0.1);
 }
