@@ -8,15 +8,13 @@
 /////////////////////////////////////////////////////
 // constructors
 
-TEST (RatioConstructor, constructorByValueAndIrreducibility)
-{ 
+TEST (RatioConstructor, constructorByValueAndIrreducibility) { 
 	rto::Ratio<int> rat(24, 2);
 	uint pgcd=std::__detail::__gcd(uint(rat.numerator()),rat.denominator());
 	ASSERT_EQ(pgcd, uint(1));
 }
 
-TEST (RatioConstructor, constructorWithReal)
-{ 
+TEST (RatioConstructor, constructorWithReal) { 
 	rto::Ratio<int> rat((double)1.5);
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 1.5);
 
@@ -31,15 +29,13 @@ TEST (RatioConstructor, constructorWithReal)
 // transformation
 
 /// irreducible
-TEST (transformation, irreducible)
-{ 
+TEST (transformation, irreducible) { 
 	rto::Ratio<int> rat(6, 4);
 	ASSERT_EQ((double)rat.numerator() / rat.denominator(), 3.0/2);
 }
 
 /// inverse
-TEST (transformation, inverse)
-{ 
+TEST (transformation, inverse) { 
 	rto::Ratio<int> rat(3, 2);
 	rat.inverse();
 	ASSERT_EQ((double)rat.numerator() / rat.denominator(), 2.0/3);
@@ -51,16 +47,14 @@ TEST (transformation, inverse)
 
 /// multiplication
 
-TEST (operators, multiplication)
-{ 
+TEST (operators, multiplication) { 
 	rto::Ratio<int> rat(5, 2);
 	rto::Ratio<int> rat2(7, 3);
 	rto::Ratio<int> res = rat * rat2;
 	ASSERT_DOUBLE_EQ((double)res.numerator() / res.denominator(), (5.0/2.0) * (7.0/3.0));
 }
 
-TEST (operatorsInteger, multiplication)
-{ 
+TEST (operatorsInteger, multiplication) { 
 	rto::Ratio<int> rat(3, 2);
 	rto::Ratio<int> rat2(2, 1);
 	rto::Ratio<int> res = rat * rat2;
@@ -69,16 +63,14 @@ TEST (operatorsInteger, multiplication)
 
 /// division
 
-TEST (operators, division)
-{ 
+TEST (operators, division) { 
 	rto::Ratio<int> rat(5, 2);
 	rto::Ratio<int> rat2(7, 3);
 	rto::Ratio<int> res = rat / rat2;
 	ASSERT_DOUBLE_EQ((double)res.numerator() / res.denominator(), (5.0/2.0) / (7.0/3.0));
 }
 
-TEST (operatorsInteger, division)
-{ 
+TEST (operatorsInteger, division) { 
 	rto::Ratio<int> rat(3, 2);
 	rto::Ratio<int> rat2(1, 2);
 	rto::Ratio<int> res = rat / rat2;
@@ -87,16 +79,14 @@ TEST (operatorsInteger, division)
 
 /// addition
 
-TEST (operators, addition)
-{ 
+TEST (operators, addition) { 
 	rto::Ratio<int> rat(5, 2);
 	rto::Ratio<int> rat2(7, 3);
 	rto::Ratio<int> res = rat + rat2;
 	ASSERT_DOUBLE_EQ((double)res.numerator() / res.denominator(), (5.0/2.0) + (7.0/3.0));
 }
 
-TEST (operatorsInteger, addition)
-{ 
+TEST (operatorsInteger, addition) { 
 	rto::Ratio<int> rat(7, 2);
 	rto::Ratio<int> rat2(1, 2);
 	rto::Ratio<int> res = rat + rat2;
@@ -105,16 +95,14 @@ TEST (operatorsInteger, addition)
 
 /// subtraction
 
-TEST (operators, subtraction)
-{ 
+TEST (operators, subtraction) { 
 	rto::Ratio<int> rat(5, 2);
 	rto::Ratio<int> rat2(7, 3);
 	rto::Ratio<int> res = rat - rat2;
 	ASSERT_NEAR((double)res.numerator() / res.denominator(), (5.0/2.0) - (7.0/3.0), 0.001);
 }
 
-TEST (operatorsInteger, subtraction)
-{ 
+TEST (operatorsInteger, subtraction) { 
 	rto::Ratio<int> rat(3, 2);
 	rto::Ratio<int> rat2(1, 2);
 	rto::Ratio<int> res = rat - rat2;
@@ -123,8 +111,7 @@ TEST (operatorsInteger, subtraction)
 
 /// copy assignment
 
-TEST (operators, assignment)
-{ 
+TEST (operators, assignment) { 
 	rto::Ratio<int> rat(5, 2);
 	rto::Ratio<int> rat2 = rat;
 	ASSERT_EQ(rat.numerator(), rat2.numerator());
@@ -133,8 +120,7 @@ TEST (operators, assignment)
 
 /// multiplication with number
 
-TEST (operators, multiplicationWnumber)
-{ 
+TEST (operators, multiplicationWnumber) { 
 	rto::Ratio<int> rat(5, 2);
 	rat = rat * 2.5; 
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 5.0/2.0 * 2.5);
@@ -142,8 +128,7 @@ TEST (operators, multiplicationWnumber)
 
 /// division with number
 
-TEST (operators, divisionWnumber)
-{ 
+TEST (operators, divisionWnumber) { 
 	rto::Ratio<int> rat(5, 2);
 	rat = rat / 2.5; 
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 5.0/2.0 / 2.5);
@@ -151,8 +136,7 @@ TEST (operators, divisionWnumber)
 
 /// addition with number
 
-TEST (operators, additionWnumber)
-{ 
+TEST (operators, additionWnumber) { 
 	rto::Ratio<int> rat(5, 2);
 	rat = rat + 2.5; 
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 5.0/2.0 + 2.5);
@@ -160,8 +144,7 @@ TEST (operators, additionWnumber)
 
 /// subtraction with number
 
-TEST (operators, subtractionWnumber)
-{ 
+TEST (operators, subtractionWnumber) { 
 	rto::Ratio<int> rat(5, 2);
 	rat = rat - 2.5; 
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 5.0/2.0 - 2.5);
@@ -169,8 +152,7 @@ TEST (operators, subtractionWnumber)
 
 /// unary minus
 
-TEST (operators, unary_minus)
-{ 
+TEST (operators, unary_minus) { 
 	rto::Ratio<int> rat(5, 2);
 	rat = -rat;
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), -5.0/2.0);
@@ -181,8 +163,7 @@ TEST (operators, unary_minus)
 
 /// less_or_equal
 
-TEST (comparison, less_or_equal)
-{ 
+TEST (comparison, less_or_equal) { 
 	rto::Ratio<int> rat(3, 2);
 	rto::Ratio<int> rat2(1, 2);
 	ASSERT_EQ(rat <= rat2, false);
@@ -193,8 +174,7 @@ TEST (comparison, less_or_equal)
 
 /// greater_or_equal
 
-TEST (comparison, greater_or_equal)
-{ 
+TEST (comparison, greater_or_equal) { 
 	rto::Ratio<int> rat(1, 2);
 	rto::Ratio<int> rat2(3, 2);
 	ASSERT_EQ(rat >= rat2, false);
@@ -205,8 +185,7 @@ TEST (comparison, greater_or_equal)
 
 /// less
 
-TEST (comparison, less)
-{ 
+TEST (comparison, less) { 
 	rto::Ratio<int> rat(3, 2);
 	rto::Ratio<int> rat2(1, 2);
 	ASSERT_EQ(rat < rat2, false);
@@ -217,8 +196,7 @@ TEST (comparison, less)
 
 /// greater
 
-TEST (comparison, greater)
-{ 
+TEST (comparison, greater) { 
 	rto::Ratio<int> rat(1, 2);
 	rto::Ratio<int> rat2(3, 2);
 	ASSERT_EQ(rat > rat2, false);
@@ -229,8 +207,7 @@ TEST (comparison, greater)
 
 /// equal
 
-TEST (comparison, equal)
-{ 
+TEST (comparison, equal) { 
 	rto::Ratio<int> rat(1, 2);
 	rto::Ratio<int> rat2(3, 2);
 	ASSERT_EQ(rat == rat2, false);
@@ -241,8 +218,7 @@ TEST (comparison, equal)
 
 /// not_equal
 
-TEST (comparison, not_equal)
-{ 
+TEST (comparison, not_equal) { 
 	rto::Ratio<int> rat(1, 2);
 	rto::Ratio<int> rat2(3, 2);
 	ASSERT_EQ(rat != rat2, true);
@@ -256,8 +232,7 @@ TEST (comparison, not_equal)
 
 /// abs
 
-TEST (math_functions, abs)
-{ 
+TEST (math_functions, abs) { 
 	rto::Ratio<int> rat(-5, 2);
 	rat = abs(rat);
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 5.0/2.0);
@@ -265,8 +240,7 @@ TEST (math_functions, abs)
 
 /// floor
 
-TEST (math_functions, floor)
-{ 
+TEST (math_functions, floor) { 
 	rto::Ratio<int> rat(5, 2);
 	rat = floor(rat);
 	ASSERT_DOUBLE_EQ((double)rat.numerator() / rat.denominator(), 2.0);
@@ -274,8 +248,7 @@ TEST (math_functions, floor)
 
 /// sin
 
-TEST (math_functions, sin)
-{ 
+TEST (math_functions, sin) { 
 	rto::Ratio<int> rat(M_PI);
 	rat = sin(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::sin(M_PI), 0.1);
@@ -283,8 +256,7 @@ TEST (math_functions, sin)
 
 /// cos
 
-TEST (math_functions, cos)
-{ 
+TEST (math_functions, cos) { 
 	rto::Ratio<int> rat(M_PI);
 	rat = cos(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::cos(M_PI), 0.1);
@@ -292,8 +264,7 @@ TEST (math_functions, cos)
 
 /// tan
 
-TEST (math_functions, tan)
-{ 
+TEST (math_functions, tan) { 
 	rto::Ratio<int> rat(M_PI);
 	rat = tan(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::tan(M_PI), 0.1);
@@ -301,8 +272,7 @@ TEST (math_functions, tan)
 
 /// exp
 
-TEST (math_functions, exp)
-{ 
+TEST (math_functions, exp) { 
 	rto::Ratio<int> rat(5,2);
 	rat = exp(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::exp(5.0/2.0), 0.1);
@@ -310,8 +280,7 @@ TEST (math_functions, exp)
 
 /// log
 
-TEST (math_functions, log)
-{ 
+TEST (math_functions, log) { 
 	rto::Ratio<int> rat(5,2);
 	rat = log(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::log(5.0/2.0), 0.1);
@@ -319,8 +288,7 @@ TEST (math_functions, log)
 
 /// sqrt
 
-TEST (math_functions, sqrt)
-{ 
+TEST (math_functions, sqrt) { 
 	rto::Ratio<int> rat(5,2);
 	rat = sqrt(rat);
 	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::sqrt(5.0/2.0), 0.1);

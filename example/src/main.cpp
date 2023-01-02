@@ -28,8 +28,7 @@ public:
 };
 
 
-int main()
-{
+int main() {
 
     std::cout << "\x1b[1m" << bold("--EXAMPLES--") << std::endl << std::endl;
 

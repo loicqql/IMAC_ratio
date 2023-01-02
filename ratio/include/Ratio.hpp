@@ -58,8 +58,7 @@ namespace rto {
         /// @param real : a number to convert into a ratio
         /// @return a ratio equal to the real
         template <typename U>
-        constexpr Ratio(const U &real)
-        {
+        constexpr Ratio(const U &real) {
             static_assert(std::is_arithmetic_v<T>, "Invalid type; should be a number");
             uint nb_iter=100;
             int sign = real < static_cast<U>(0) ? -1 : 1;
@@ -107,8 +106,7 @@ namespace rto {
         /// \brief transforms a Ratio into its invert
         constexpr void inverse() {
             T sign= static_cast<T>(1);
-            if (this->m_numerator<0)
-            {
+            if (this->m_numerator<0) {
                 sign=-1; 
             }
             T temp= sign*this->m_numerator;
@@ -208,71 +206,59 @@ namespace rto {
         inline friend Ratio operator-(const Ratio &rat) {return Ratio(-rat.m_numerator,rat.m_denominator);}
 
         //mathematical fonctions
-        constexpr friend Ratio abs(const Ratio & rat)
-        {
+        constexpr friend Ratio abs(const Ratio & rat) {
             return Ratio(std::abs(rat.m_numerator),rat.m_denominator);
         }
 
-        constexpr friend Ratio floor(const Ratio & rat)
-        {
+        constexpr friend Ratio floor(const Ratio & rat) {
             return Ratio(rat.m_numerator-rat.m_numerator%int(rat.m_denominator),rat.m_denominator);
         }
 
         //optionnal
-        constexpr friend Ratio sin(const Ratio & rat)
-        {
+        constexpr friend Ratio sin(const Ratio & rat) {
             double value=std::sin(double(rat.m_numerator)/double(rat.m_denominator));
             Ratio result(value);
             return result;
         }
 
-        constexpr friend Ratio cos(const Ratio & rat)
-        {
+        constexpr friend Ratio cos(const Ratio & rat) {
             double value=std::cos(double(rat.m_numerator)/double(rat.m_denominator));
             Ratio result(value);
             return result;
         }
 
-        constexpr friend Ratio tan(const Ratio & rat)
-        {
+        constexpr friend Ratio tan(const Ratio & rat) {
             return sin(rat)/cos(rat);
         }
 
-        constexpr friend Ratio exp(const Ratio & rat)
-        {
+        constexpr friend Ratio exp(const Ratio & rat) {
             double value=std::exp(rat.m_numerator/rat.m_denominator);
             return Ratio(value);
         }
 
-        constexpr friend Ratio log(const Ratio & rat)
-        {
+        constexpr friend Ratio log(const Ratio & rat) {
             return Ratio(std::log(double(rat.m_numerator))-std::log(double(rat.m_denominator)));
         }
 
-        constexpr friend Ratio sqrt(const Ratio & rat)
-        {
+        constexpr friend Ratio sqrt(const Ratio & rat) {
             return Ratio(std::sqrt(rat.m_numerator),std::sqrt(rat.m_denominator));
         }
 
         template <typename U>
         constexpr static Ratio<T> pow(Ratio rat, U n) {
             static_assert(std::is_arithmetic_v<U>, "Invalid type; should be a number");
-            if(n<static_cast<U>(0))
-            {
+            if(n<static_cast<U>(0)) {
                 rat.inverse();
                 n=-n;
             }
             return Ratio(std::pow(rat.m_numerator,n),std::pow(rat.m_denominator,n));
         }
 
-        // Utilities 
-
         /// \brief overload the operator << for Ratio
         /// \param stream : input stream
         /// \param v : the ratio to output
         /// \return the output stream containing the ratio data
-        constexpr friend std::ostream& operator<<(std::ostream& stream, const Ratio& r)
-        {
+        constexpr friend std::ostream& operator<<(std::ostream& stream, const Ratio& r) {
             stream << "(" << r.numerator() << "/" << r.denominator() << ")";
             return stream;
         }
@@ -281,8 +267,7 @@ namespace rto {
     private : //Utilities
         
         template <typename U>
-        constexpr rto::Ratio<T> convertRealToRatio(U real, uint nb_iter)
-        {
+        constexpr rto::Ratio<T> convertRealToRatio(U real, uint nb_iter) {
             //1st stopping condition : return 0/1
             if(real==static_cast<U>(0)){return rto::Ratio();}
 
