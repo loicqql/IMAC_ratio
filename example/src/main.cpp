@@ -37,7 +37,7 @@ int main() {
     {
         std::cout << bold("-constructors") << std::endl;
         std::cout << "Ratio<long> rat(1,2) = " << Ratio<long>(1,2) << std::endl;
-        std::cout << "Ratio<int> rat(3.5) = " << Ratio<int>(3.5) << std::endl;
+        std::cout << "Ratio<int> rat(-3.5) = " << Ratio<int>(-3.5) << std::endl;
         std::cout << "Ratio<int> rat(4) = " << Ratio<int>(4) << std::endl;
         std::cout << std::endl;
     }
@@ -128,11 +128,12 @@ int main() {
         std::cout << "Ratio<int> rat(0.5)" << std::endl;
         std::cout << "abs(-rat) = " << abs(-rat) << std::endl;
         std::cout << "floor(rat) = " << floor(rat) << std::endl;
+        std::cout << "pow(rat, 5) = " << pow(rat, 5) << std::endl;
         std::cout << "sin(rat) = " << sin(rat) << " = " << (double)sin(rat).numerator() /  sin(rat).denominator() << " (not recommended)" << std::endl;
         std::cout << "cos(rat) = " << cos(rat) << " = " << (double)cos(rat).numerator() /  cos(rat).denominator() << " (not recommended)" << std::endl;
         std::cout << "tan(rat) = " << tan(rat) << " = " << (double)tan(rat).numerator() /  tan(rat).denominator() << " (not recommended)" << std::endl;
         std::cout << "log(rat) = " << log(rat) << " = " << (double)log(rat).numerator() /  log(rat).denominator() << " (not recommended)" << std::endl;
-        std::cout << "sqrt(rat) = " << sqrt(rat) << std::endl;
+        std::cout << "sqrt(Ratio<int>(9)) = " << sqrt(Ratio<int>(9)) << " (not recommended)" << std::endl;
         std::cout << std::endl;
     }
 

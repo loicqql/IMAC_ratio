@@ -10,7 +10,7 @@
 
 TEST (RatioConstructor, constructorByValueAndIrreducibility) { 
 	rto::Ratio<int> rat(24, 2);
-	uint pgcd=std::__detail::__gcd(uint(rat.numerator()),rat.denominator());
+	uint pgcd=std::gcd(uint(rat.numerator()),rat.denominator());
 	ASSERT_EQ(pgcd, uint(1));
 }
 
@@ -257,17 +257,17 @@ TEST (math_functions, sin) {
 /// cos
 
 TEST (math_functions, cos) { 
-	rto::Ratio<int> rat(M_PI);
+	rto::Ratio<int> rat(2*M_PI);
 	rat = cos(rat);
-	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::cos(M_PI), 0.1);
+	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::cos(2*M_PI), 0.1);
 }
 
 /// tan
 
 TEST (math_functions, tan) { 
-	rto::Ratio<int> rat(M_PI);
+	rto::Ratio<int> rat(2*M_PI);
 	rat = tan(rat);
-	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::tan(M_PI), 0.1);
+	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::tan(2*M_PI), 0.1);
 }
 
 /// exp
@@ -289,7 +289,15 @@ TEST (math_functions, log) {
 /// sqrt
 
 TEST (math_functions, sqrt) { 
-	rto::Ratio<int> rat(5,2);
+	rto::Ratio<int> rat(18,2);
 	rat = sqrt(rat);
-	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::sqrt(5.0/2.0), 0.1);
+	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::sqrt(18.0 / 2.0), 0.1);
+}
+
+/// pow
+
+TEST (math_functions, pow) { 
+	rto::Ratio<int> rat(18,2);
+	rat = pow(rat, 6);
+	ASSERT_NEAR((double)rat.numerator() / rat.denominator(), std::pow(18.0 / 2.0, 6), 0.1);
 }

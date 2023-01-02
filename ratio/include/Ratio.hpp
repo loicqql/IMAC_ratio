@@ -11,10 +11,11 @@
 /// \mainpage
 /// \tableofcontents
 /// \section instroduction_sec What for?
-/// Ratio is a super tool :).
+/// Ratio is a library using rationals to remplace floating-point arithmetic.
 /// \section install_bigsec How to install
 /// \subsection dependencies_sec Dependecies
-/// \li nothing
+/// \li Cmake (>=3.13)
+/// \li libgtest-dev (google test)
 /// \li Doxygen (if you want the documentation)
 /// \subsection install_sec Install with cmake (Linux / Mac)
 /// \li go to main dir
@@ -22,10 +23,11 @@
 /// \li cd build
 /// \li cmake ..
 /// \li make
+/// \li ./example/example (run example)
+/// \li ./UnitTest/UnitTests (run tests)
 /// \li if Doxygen installed: make html
 /// \li The documentation is located in :
-/// 	- [path to build]/doc/doc-doxygen/html/index.html or 
-/// 	- or [path to build]/INTERFACE/doc/doc-doxygen/html/index.html
+/// 	- [path to build]/INTERFACE/doc/doc-doxygen/html/index.html
 
 
 /// \class Ratio
@@ -38,6 +40,7 @@ namespace rto {
     public :
 
         /// \brief defaultConstructor equal to 0
+        /// @return a ratio (0/1)
         constexpr Ratio() {
             static_assert(std::is_integral_v<T>, "Invalid type; should be a number");
             m_numerator = static_cast<T>(0);
@@ -45,9 +48,10 @@ namespace rto {
         };
 
         /// \brief constructor from a numerator and a denominator
-        /// \param numerator : int : the numerator of the requested rational
-        /// \param denominator : unsigned int : the denominator of the requested rational
-        constexpr Ratio(const int &numerator, const uint &denominator) {
+        /// \param numerator : the numerator of the requested rational
+        /// \param denominator : the denominator of the requested rational
+        /// @return a ratio (numerator/denominator)
+        constexpr Ratio(const T &numerator, const T &denominator) {
             static_assert(std::is_integral_v<T>, "Invalid type; should be a number");
             this->m_numerator=numerator;
             this->m_denominator=denominator;
@@ -68,6 +72,7 @@ namespace rto {
 
         /// \brief copyConstructor
         /// \param rat : Ratio copied
+        /// @return the ratio
         constexpr Ratio(const Ratio &rat) {
             static_assert(std::is_integral_v<T>, "Invalid type; should be a number");
             m_numerator = rat.m_numerator;
@@ -79,24 +84,29 @@ namespace rto {
 
     private :
     
-        int m_numerator;
-        uint m_denominator;
+        T m_numerator;
+        T m_denominator;
 
     public :
 
         /// \brief get numerator
-        constexpr inline int & numerator() {return m_numerator;};
+        /// @return the numerator
+        constexpr inline T & numerator() {return m_numerator;};
 
         /// \brief get denominator
-        constexpr inline uint & denominator() {return m_denominator;};
+        /// @return the denominator
+        constexpr inline T & denominator() {return m_denominator;};
 
         /// \brief get numerator
-        constexpr inline const int & numerator() const {return m_numerator;};
+        /// @return the numerator
+        constexpr inline const T & numerator() const {return m_numerator;};
 
         /// \brief get denominator
-        constexpr inline const uint & denominator() const {return m_denominator;};
+        /// @return the denominator
+        constexpr inline const T & denominator() const {return m_denominator;};
 
         /// \brief transforms a Ratio into an irreducible fraction
+        /// @return void
         constexpr void irreducible() {
             T pgcd = std::gcd(this->m_numerator,this->m_denominator);
             this->m_numerator=this->m_numerator/pgcd;
@@ -104,6 +114,7 @@ namespace rto {
         }
 
         /// \brief transforms a Ratio into its invert
+        /// @return void
         constexpr void inverse() {
             T sign= static_cast<T>(1);
             if (this->m_numerator<0) {
@@ -115,72 +126,107 @@ namespace rto {
         }
 
         /// \brief operator =
-        /// \param the rational
-        constexpr void operator=(const Ratio &r) {
-            this->m_numerator=r.m_numerator;
-            this->m_denominator=r.m_denominator;
+        /// \param rat : the rational
+        /// @return void
+        constexpr void operator=(const Ratio &rat) {
+            this->m_numerator=rat.m_numerator;
+            this->m_denominator=rat.m_denominator;
         }
 
         /// \brief operator *
-        /// \param the rational
-        constexpr Ratio operator*(const Ratio &r) const {
-            T num = this->m_numerator * r.m_numerator;
-            T den = this->m_denominator * r.m_denominator;
+        /// \param rat : the rational
+        /// @return the ratio
+        constexpr Ratio operator*(const Ratio &rat) const {
+            T num = this->m_numerator * rat.m_numerator;
+            T den = this->m_denominator * rat.m_denominator;
             return Ratio(num, den);
         }
 
         /// \brief operator +
-        /// \param the rational
-        constexpr Ratio operator+(const Ratio &r) const {
-            T num = this->m_numerator * r.m_denominator + this->m_denominator * r.m_numerator;
-            T den = this->m_denominator * r.m_denominator;
+        /// \param rat : the rational
+        /// @return the ratio
+        constexpr Ratio operator+(const Ratio &rat) const {
+            T num = this->m_numerator * rat.m_denominator + this->m_denominator * rat.m_numerator;
+            T den = this->m_denominator * rat.m_denominator;
             return Ratio(num, den);
         }
 
         /// \brief operator -
-        /// \param the rational
-        constexpr Ratio operator-(const Ratio &r) const {
-            T num = this->m_numerator * r.m_denominator - this->m_denominator * r.m_numerator;
-            T den = this->m_denominator * r.m_denominator;
+        /// \param r : the rational
+        /// @return the ratio
+        constexpr Ratio operator-(const Ratio &rat) const {
+            T num = this->m_numerator * rat.m_denominator - this->m_denominator * rat.m_numerator;
+            T den = this->m_denominator * rat.m_denominator;
             return Ratio(num, den);
         }
 
         /// \brief operator /
-        /// \param the rational
+        /// \param rat : the rational
+        /// @return the ratio
         constexpr Ratio operator/(Ratio rat) const {
             assert(rat.m_numerator!=0 && "Can't divide by 0"); 
             rat.inverse();
             return *this*rat;
         }
 
-        
+        /// \brief operator <=
+        /// \param rat : the rational
+        /// @return result
         constexpr bool operator<=(const Ratio& rat) const {
             return (this->m_numerator / this->m_denominator) <= (rat.m_numerator / rat.m_denominator);
         }
+
+        /// \brief operator >=
+        /// \param rat : the rational
+        /// @return result
         constexpr bool operator>=(const Ratio& rat) const {
             return (this->m_numerator / this->m_denominator) >= (rat.m_numerator / rat.m_denominator);
         }
+
+        /// \brief operator <
+        /// \param rat : the rational
+        /// @return result
         constexpr bool operator<(const Ratio& rat) const {
             return (this->m_numerator / this->m_denominator) < (rat.m_numerator / rat.m_denominator);
         }
+
+        /// \brief operator >
+        /// \param rat : the rational
+        /// @return result
         constexpr bool operator>(const Ratio& rat) const {
             return (this->m_numerator / this->m_denominator) > (rat.m_numerator / rat.m_denominator);
         }
+
+        /// \brief operator ==
+        /// \param rat : the rational
+        /// @return result
         constexpr bool operator==(const Ratio& rat) const {
             return (this->m_numerator == rat.m_numerator) && (this->m_denominator == rat.m_denominator);
         }
+
+        /// \brief operator !=
+        /// \param rat : the rational
+        /// @return result
         constexpr bool operator!=(const Ratio& rat) const {
             return (this->m_numerator / this->m_denominator) != (rat.m_numerator / rat.m_denominator);
         }
 
 
+        /// \brief operator * with a number
+        /// \param rat : the rational
+        /// \param value : the number
+        /// @return a ratio
         template <typename U>
         constexpr friend Ratio operator*(const Ratio &rat, const U &value) {
             static_assert(std::is_arithmetic_v<U>, "Invalid type; should be a number");
             rto::Ratio val(value);
             return rat*val;
-        } 
+        }
 
+        /// \brief operator / with a number
+        /// \param rat : the rational
+        /// \param value : the number
+        /// @return a ratio
         template <typename U>
         constexpr friend Ratio operator/(const Ratio &rat, const U &value) {
             static_assert(std::is_arithmetic_v<U>, "Invalid type; should be a number");
@@ -188,6 +234,10 @@ namespace rto {
             return rat/val;
         }
 
+        /// \brief operator + with a number
+        /// \param rat : the rational
+        /// \param value : the number
+        /// @return a ratio
         template <typename U>
         constexpr friend Ratio operator+(const Ratio &rat, const U &value) {
             static_assert(std::is_arithmetic_v<U>, "Invalid type; should be a number");
@@ -195,6 +245,10 @@ namespace rto {
             return rat+val;
         }
 
+        /// \brief operator - with a number
+        /// \param rat : the rational
+        /// \param value : the number
+        /// @return a ratio
         template <typename U>
         constexpr friend Ratio operator-(const Ratio &rat, const U &value) {
             static_assert(std::is_arithmetic_v<U>, "Invalid type; should be a number");
@@ -203,49 +257,81 @@ namespace rto {
         }
 
         /// \brief unary minus
+        /// \param rat : ratio
+        /// @return -ratio
         inline friend Ratio operator-(const Ratio &rat) {return Ratio(-rat.m_numerator,rat.m_denominator);}
 
         //mathematical fonctions
+
+        /// \brief abs
+        /// \param rat : the rational
+        /// @return abs of the rational
         constexpr friend Ratio abs(const Ratio & rat) {
             return Ratio(std::abs(rat.m_numerator),rat.m_denominator);
         }
 
+        /// \brief floor
+        /// \param rat : the rational
+        /// @return floor of the rational
         constexpr friend Ratio floor(const Ratio & rat) {
-            return Ratio(rat.m_numerator-rat.m_numerator%int(rat.m_denominator),rat.m_denominator);
+            return Ratio(rat.m_numerator-rat.m_numerator%rat.m_denominator,rat.m_denominator);
         }
 
         //optionnal
+
+        /// \brief sin
+        /// \param rat : the rational
+        /// @return sin of the rational
         constexpr friend Ratio sin(const Ratio & rat) {
             double value=std::sin(double(rat.m_numerator)/double(rat.m_denominator));
             Ratio result(value);
             return result;
         }
 
+        /// \brief cos
+        /// \param rat : the rational
+        /// @return cos of the rational
         constexpr friend Ratio cos(const Ratio & rat) {
             double value=std::cos(double(rat.m_numerator)/double(rat.m_denominator));
             Ratio result(value);
             return result;
         }
 
+        /// \brief tan
+        /// \param rat : the rational
+        /// @return tan of the rational
         constexpr friend Ratio tan(const Ratio & rat) {
             return sin(rat)/cos(rat);
         }
 
+        /// \brief exp
+        /// \param rat : the rational
+        /// @return exp of the rational
         constexpr friend Ratio exp(const Ratio & rat) {
             double value=std::exp(rat.m_numerator/rat.m_denominator);
             return Ratio(value);
         }
 
+        /// \brief log
+        /// \param rat : the rational
+        /// @return log of the rational
         constexpr friend Ratio log(const Ratio & rat) {
             return Ratio(std::log(double(rat.m_numerator))-std::log(double(rat.m_denominator)));
         }
 
+        /// \brief square_root
+        /// \param rat : the rational
+        /// @return sqrt of the rational
         constexpr friend Ratio sqrt(const Ratio & rat) {
-            return Ratio(std::sqrt(rat.m_numerator),std::sqrt(rat.m_denominator));
+            return Ratio(pow(rat, 0.5));
         }
 
+        /// \brief pow
+        /// \param rat : the rational
+        /// \param n : a number
+        /// @return pow of the rational
         template <typename U>
-        constexpr static Ratio<T> pow(Ratio rat, U n) {
+        constexpr friend Ratio pow(Ratio rat, U n) {
             static_assert(std::is_arithmetic_v<U>, "Invalid type; should be a number");
             if(n<static_cast<U>(0)) {
                 rat.inverse();
